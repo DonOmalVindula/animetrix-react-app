@@ -6,14 +6,16 @@ export const Header = () => {
 
     const { state, getDecodedIDToken, signOut } = useAuthContext();
 
-    const [ isResourcesAllowed, setIsResourcesAllowed ] = useState();
+    const [ isResourcesAllowed, setIsResourcesAllowed ] = useState(false);
+    const [ loggedInUser, setLoggedInUser ] = useState(null);
 
     // Filter the display of Insights section based on the application role.
     useEffect(() => {
         getDecodedIDToken()
             .then((decodedIdToken) => {
                 console.log("Decoded ID token", decodedIdToken);
-                if (decodedIdToken?.application_roles === "Anime-App-Admin") {
+                setLoggedInUser(decodedIdToken?.username);
+                if (decodedIdToken?.application_roles === "animatrix-app-admin") {
                     setIsResourcesAllowed(true);
                 }
             })
@@ -38,13 +40,17 @@ export const Header = () => {
                         </a>
                     ) }
                 </div>
-                <div className='right-panel'>
-                    {/* <div className='avatar-dropdown'>
-                        <div className='avatar'>
-                            <a href='#'>username goes here</a>
+                {
+                    loggedInUser && (
+                        <div className='right-panel'>
+                            <div className='avatar-dropdown'>
+                                <div className='avatar'>
+                                    <a href='#' onClick={ signOut }>{ loggedInUser }</a>
+                                </div>
+                            </div>
                         </div>
-                    </div> */}
-                </div>
+                    )
+                }
             </div>
         </header>
     );

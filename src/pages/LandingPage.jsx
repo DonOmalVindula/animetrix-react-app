@@ -4,17 +4,24 @@ import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "@asgardeo/auth-react";
 import { useEffect } from "react";
 import "../styles/LandingPage.css";
+import { Loader } from "../components/Loader";
 
 export const LandingPage = () => {
     
     const navigate = useNavigate();
-    const { on, state, signIn, signOut } = useAuthContext();
+    const { state, signIn, signOut } = useAuthContext();
 
     useEffect(() => {
-        on("sign-in", () => {
+        if (state?.isAuthenticated) {
             navigate("/home");
-        });
-    }, [ on ]);
+        }
+    }, [ state ]);
+
+    if (state?.isLoading) {
+        return (
+            <Loader />
+        );
+    }
 
     return (
         <div className='container-center login'>

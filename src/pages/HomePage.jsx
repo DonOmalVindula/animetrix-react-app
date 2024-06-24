@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { DefaultLayout } from "../layouts/Default";
 import "../styles/HomePage.css";
 import { getMovieCategories } from "../api/movies";
+import { Loader } from "../components/Loader";
 
 export const HomePage = () => {
 
@@ -40,9 +41,7 @@ export const HomePage = () => {
                 </div>
                 {
                     isRequestLoading ? (
-                        <div className="spinner-container">
-                            <div className="spinner"></div>
-                        </div>
+                        <Loader />
                     ) : (
                         <div className='main-content-wrapper'>
                             {
