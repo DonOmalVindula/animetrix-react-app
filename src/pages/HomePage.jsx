@@ -1,26 +1,15 @@
 import { useEffect, useState } from "react";
 import { DefaultLayout } from "../layouts/Default";
 import "../styles/HomePage.css";
-import { getMovieCategories } from "../api/movies";
+import ResourceList from "../data.json";
 
 export const HomePage = () => {
 
     const [ categories, setCategories ] = useState([]);
-    const [ isRequestLoading, setIsRequestLoading ] = useState(false);
 
     useEffect(() => {
-        setIsRequestLoading(true);
-
-        // Fetch all movie categories.
-        getMovieCategories()
-            .then((response) => {
-                setCategories(response);
-            }).catch((error) => {
-                console.log("Error occured while fetching movie categories", error);
-            }).finally(() => {
-                setIsRequestLoading(false);
-            });
-    }, []);
+        setCategories(ResourceList);  
+    }, [ ResourceList ]);
 
     return (
         <DefaultLayout>
@@ -38,46 +27,36 @@ export const HomePage = () => {
                         </div>
                     </div>
                 </div>
-                {
-                    isRequestLoading ? (
-                        <div className="spinner-container">
-                            <div className="spinner"></div>
-                        </div>
-                    ) : (
-                        <div className='main-content-wrapper'>
-                            {
-                                categories && categories.map((category, index) => (
-                                    <section className='category' key={ index }>
-                                        <h2>{ category.catergoryName }</h2>
-                                        <div className="movie-list-container">
-                                        {
-                                            category.resources.map((resource, index) => (
-                                                <div className='resource-card' key={ index }>
-                                                    <div className='card-content'>
-                                                        <img 
-                                                            className="movie-image" 
-                                                            src={ resource.image }
-                                                            alt='movie poster' 
-                                                        />    
-                                                        <h2>{ resource.name }</h2>
-                                                        <p>{ resource.description }</p>
-                                                        <a href='#' className='card-link'>
-                                                            Watch now <span>➔</span>
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            )) 
-                                        }
+                <div className='main-content-wrapper'>
+                    {
+                        categories && categories.map((category, index) => (
+                            <section className='category' key={ index }>
+                                <h2>{ category.catergoryName }</h2>
+                                <div className="movie-list-container">
+                                {
+                                    category.resources.map((resource, index) => (
+                                        <div className='resource-card' key={ index }>
+                                            <div className='card-content'>
+                                                <img 
+                                                    className="movie-image" 
+                                                    src={ resource.image }
+                                                    alt='movie poster' 
+                                                />    
+                                                <h2>{ resource.name }</h2>
+                                                <p>{ resource.description }</p>
+                                                <a href='#' className='card-link'>
+                                                    Watch now <span>➔</span>
+                                                </a>
+                                            </div>
                                         </div>
-                                    </section>
-                                )) 
-                            }
-                        </div>
-                    )
-                }
+                                    )) 
+                                }
+                                </div>
+                            </section>
+                        )) 
+                    }
+                </div>
             </div>
         </DefaultLayout>
     );
 };
-
-
