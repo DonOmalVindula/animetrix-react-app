@@ -38,35 +38,43 @@ export const HomePage = () => {
                         </div>
                     </div>
                 </div>
-                <div className='main-content-wrapper'>
-                    {
-                        categories && categories.map((category, index) => (
-                            <section className='category' key={ index }>
-                                <h2>{ category.catergoryName }</h2>
-                                <div className="movie-list-container">
-                                {
-                                    category.resources.map((resource, index) => (
-                                        <div className='resource-card' key={ index }>
-                                            <div className='card-content'>
-                                                <img 
-                                                    className="movie-image" 
-                                                    src={ resource.image }
-                                                    alt='movie poster' 
-                                                />    
-                                                <h2>{ resource.name }</h2>
-                                                <p>{ resource.description }</p>
-                                                <a href='#' className='card-link'>
-                                                    Watch now <span>➔</span>
-                                                </a>
-                                            </div>
+                {
+                    isRequestLoading ? (
+                        <div className="spinner-container">
+                            <div className="spinner"></div>
+                        </div>
+                    ) : (
+                        <div className='main-content-wrapper'>
+                            {
+                                categories && categories.map((category, index) => (
+                                    <section className='category' key={ index }>
+                                        <h2>{ category.catergoryName }</h2>
+                                        <div className="movie-list-container">
+                                        {
+                                            category.resources.map((resource, index) => (
+                                                <div className='resource-card' key={ index }>
+                                                    <div className='card-content'>
+                                                        <img 
+                                                            className="movie-image" 
+                                                            src={ resource.image }
+                                                            alt='movie poster' 
+                                                        />    
+                                                        <h2>{ resource.name }</h2>
+                                                        <p>{ resource.description }</p>
+                                                        <a href='#' className='card-link'>
+                                                            Watch now <span>➔</span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            )) 
+                                        }
                                         </div>
-                                    )) 
-                                }
-                                </div>
-                            </section>
-                        )) 
-                    }
-                </div>
+                                    </section>
+                                )) 
+                            }
+                        </div>
+                    )
+                }
             </div>
         </DefaultLayout>
     );
