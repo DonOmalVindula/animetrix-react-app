@@ -1,7 +1,0 @@
-{
-    "signInRedirectURL": "http://localhost:5173",
-    "signOutRedirectURL": "http://localhost:5173",
-    "clientID": "",
-    "baseUrl": "",
-    "scope": [ "openid", "profile", "email" ]
-}
