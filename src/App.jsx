@@ -4,6 +4,7 @@ import { LandingPage } from "./pages/LandingPage";
 import { HomePage } from "./pages/HomePage";
 import { AuthenticatedComponent } from "@asgardeo/auth-react";
 import { InsightsPage } from "./pages/InsightsPage";
+import UserInfo from "./pages/UserInfo";
 
 const routers = createBrowserRouter([
     {
@@ -25,6 +26,14 @@ const routers = createBrowserRouter([
                 <InsightsPage />
             </AuthenticatedComponent>
         ),
+    },
+    {
+        path: "/user-info",
+        element: (
+            <AuthenticatedComponent fallback={<Navigate to='/' />}>
+                <UserInfo />
+            </AuthenticatedComponent>
+        )
     }
 ]);
 

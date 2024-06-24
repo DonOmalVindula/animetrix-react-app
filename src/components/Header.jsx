@@ -39,6 +39,9 @@ export const Header = () => {
                             Insights
                         </a>
                     ) }
+                    <a href='/user-info' className='nav' id='user-info'>
+                        User Info
+                    </a>
                 </div>
                 {
                     loggedInUser && (
